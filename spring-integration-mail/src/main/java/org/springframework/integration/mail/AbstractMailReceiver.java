@@ -560,15 +560,15 @@ public abstract class AbstractMailReceiver extends IntegrationObjectSupport impl
 
 		@Override
 		public Folder getFolder() {
-			try {
-				return AbstractMailReceiver.this.obtainFolderInstance();
-			}
-			catch (MessagingException e) {
-				throw new org.springframework.messaging.MessagingException("Unable to obtain the mail folder", e);
-			}
+//			try {
+//				return AbstractMailReceiver.this.obtainFolderInstance();
+			    return source.getFolder();
+//            }
+//			catch (MessagingException e) {
+//				throw new org.springframework.messaging.MessagingException("Unable to obtain the mail folder", e);
+//			}
 		}
 
-		@Override
 		public Date getReceivedDate() throws MessagingException {
 			/*
 			 * Basic MimeMessage always returns null; delegate to the original.
@@ -583,7 +583,26 @@ public abstract class AbstractMailReceiver extends IntegrationObjectSupport impl
 			 */
 			return this.source.getLineCount();
 		}
+        
+        @Override
+        public Flags getFlags() throws MessagingException {
+            return this.source.getFlags();
+        }
 
-	}
+        @Override
+        public void setFlags(Flags flag, boolean set) throws MessagingException {
+            this.source.setFlags(flag, set); 
+        }
+
+        @Override
+        public Date getSentDate() throws MessagingException {
+            return this.source.getSentDate();
+        }
+	
+        @Override
+        public String getMessageID() throws MessagingException {
+            return this.source.getMessageID();
+        }        
+    }
 
 }
