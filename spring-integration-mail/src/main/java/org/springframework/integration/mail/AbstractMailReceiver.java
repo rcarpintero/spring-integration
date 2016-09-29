@@ -560,13 +560,7 @@ public abstract class AbstractMailReceiver extends IntegrationObjectSupport impl
 
 		@Override
 		public Folder getFolder() {
-//			try {
-//				return AbstractMailReceiver.this.obtainFolderInstance();
 			    return source.getFolder();
-//            }
-//			catch (MessagingException e) {
-//				throw new org.springframework.messaging.MessagingException("Unable to obtain the mail folder", e);
-//			}
 		}
 
 		public Date getReceivedDate() throws MessagingException {
