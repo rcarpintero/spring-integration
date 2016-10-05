@@ -596,7 +596,12 @@ public abstract class AbstractMailReceiver extends IntegrationObjectSupport impl
         @Override
         public String getMessageID() throws MessagingException {
             return this.source.getMessageID();
-        }        
+        }
+
+        @Override
+        public int getMessageNumber() {
+            return this.source.getMessageNumber();
+        }
     }
 
 }
