@@ -17,7 +17,6 @@ ext.javadocLinks = [
 
 
 apply plugin: 'java'
-apply from:   "${rootProject.projectDir}/publish-maven.gradle"
 apply plugin: 'jacoco'
 
 compileJava {
@@ -26,8 +25,11 @@ compileJava {
 }
 
 ext {
-        springVersion = '4.3.3.RELEASE' //project.hasProperty('springVersion') ? project.springVersion : '5.0.0.BUILD-SNAPSHOT'
-        springIntVersion = '4.3.4.RELEASE'
+    javaxActivationVersion = '1.1.1'
+    javaxMailVersion = '1.5.5'    
+    springVersion = '4.3.1.RELEASE' //project.hasProperty('springVersion') ? project.springVersion : '5.0.0.BUILD-SNAPSHOT'
+    springIntVersion = '4.3.1.RELEASE'
+    slf4jVersion = "1.7.21"
 }
 
 sourceSets {
@@ -123,10 +125,10 @@ dependencies {
     compile "org.springframework:spring-context-support:$springVersion"
     compile "org.springframework.integration:spring-integration-core:$springIntVersion"
     testCompile "org.springframework.integration:spring-integration-test:$springIntVersion"
-    compile("javax.mail:javax.mail-api:$javaxMailVersion", provided)
-    compile("com.sun.mail:imap:$javaxMailVersion", provided)
-    compile("com.sun.mail:javax.mail:$javaxMailVersion", provided);
-    compile("javax.activation:activation:$javaxActivationVersion", optional)
+    compile "javax.mail:javax.mail-api:$javaxMailVersion"
+    compile "com.sun.mail:imap:$javaxMailVersion"
+    compile "com.sun.mail:javax.mail:$javaxMailVersion"
+    compile "javax.activation:activation:$javaxActivationVersion"
     testRuntime "org.slf4j:slf4j-log4j12:$slf4jVersion"
 }
 
