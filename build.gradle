@@ -18,6 +18,7 @@ ext.javadocLinks = [
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
 
 compileJava {
     sourceCompatibility = 1.8
@@ -27,17 +28,9 @@ compileJava {
 ext {
     javaxActivationVersion = '1.1.1'
     javaxMailVersion = '1.5.5'    
-    springVersion = '4.3.1.RELEASE' //project.hasProperty('springVersion') ? project.springVersion : '5.0.0.BUILD-SNAPSHOT'
+    springVersion = '4.3.1.RELEASE' 
     springIntVersion = '4.3.1.RELEASE'
     slf4jVersion = "1.7.21"
-}
-
-sourceSets {
-    test {
-        resources {
-            srcDirs = ['src/test/resources', 'src/test/java']
-        }
-    }
 }
 
 jacoco {
@@ -85,16 +78,6 @@ test {
     }
 }
 
-task testAll(type: Test)
-
-tasks.withType(Test).all {
-    // suppress all console output during testing unless running `gradle -i`
-    logging.captureStandardOutput(LogLevel.INFO)
-        dependsOn checkTestConfigs
-
-    environment 'SI_FATAL_WHEN_NO_BEANFACTORY', 'true'
-}
-
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allJava
@@ -135,6 +118,19 @@ dependencies {
 // suppress javax.activation path warnings
 [compileJava,compileTestJava]*.options*.compilerArgs = ["${xLintArg},-path"]
 
-task dist(dependsOn: assemble) {
+task bundle(dependsOn: jar) {
     description = 'Distribution for zooplus spring integration mail module'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "http://repo.zooplus.de/artifactory/crm-local"
+        }
+    }
 }
