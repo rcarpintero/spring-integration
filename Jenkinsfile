@@ -1,6 +1,6 @@
 def gitUrl = 'https://github.com/rcarpintero/spring-integration.git'
 
-def release = env.BRANCH_NAME.startsWith('zooplus/')
+def release = env.BRANCH_NAME.startsWith('zooplus/release')
 
 if (release) {
     node('java8-dind-maven3') {
@@ -16,8 +16,10 @@ if (release) {
         stage 'Package'
         sh './gradlew bundle'
 
-        stage 'Publish to Artifactory'
-        sh './gradlew publish'
-    
+
+        if (release) {
+            stage 'Publish to Artifactory'
+            sh './gradlew publish'
+        }
     }
 }

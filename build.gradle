@@ -10,12 +10,6 @@ repositories {
     mavenCentral()
 }
 
-ext.javadocLinks = [
-    'http://docs.oracle.com/javase/7/docs/api/',
-    'http://docs.oracle.com/javaee/6/api/',
-] as String[]
-
-
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
