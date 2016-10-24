@@ -131,7 +131,7 @@ publishing {
     }
     repositories {
         maven {
-            url "http://repo.zooplus.de/artifactory/crm-local"
+            url "http://repo.zooplus.de/artifactory/libs-local"
         }
     }
 }
