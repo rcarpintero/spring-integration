@@ -31,7 +31,14 @@ jacoco {
     toolVersion = "0.7.2.201409121644"
 }
 
-// enable all compiler warnings; individual projects may customize further
+sourceSets {
+    test {
+        resources {
+            srcDirs = ['src/test/resources', 'src/test/java']
+        }
+    }
+}
+
 ext.xLintArg = '-Xlint:all,-options,-processing'
 [compileJava, compileTestJava]*.options*.compilerArgs = [xLintArg]
 
